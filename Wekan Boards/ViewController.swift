@@ -40,8 +40,6 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
                 }
             }
         }
-        usersArray = usersArray.sorted(by: {$0.name.compare($1.name, options: .caseInsensitive) == .orderedAscending})
-        boardsArray = boardsArray.sorted(by: {$0.name.compare($1.name, options: .caseInsensitive) == .orderedAscending})
         outlineView.reloadData()
     }
     
@@ -68,8 +66,6 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
                 }
             }
         }
-        usersArray = usersArray.sorted(by: {$0.name.compare($1.name, options: .caseInsensitive) == .orderedAscending})
-        boardsArray = boardsArray.sorted(by: {$0.name.compare($1.name, options: .caseInsensitive) == .orderedAscending})
         outlineView.reloadData()
         
     }
