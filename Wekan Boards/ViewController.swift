@@ -3,7 +3,6 @@
 //  Wekan Boards
 //
 //  Created by Guillaume on 29/01/2018.
-//  Copyright © 2018 Guillaume. All rights reserved.
 //
 
 import Cocoa
@@ -14,12 +13,8 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
     var rootURL: String = ""
     var mode = "users"
     
-    var usersArray = [User]()
-    var usersNames = [String]()
-    var usersInBoardsArray = [String: [String]]()
-    var boardsArray = [Board]()
-    var boardsId = [String]()
-    var boardsNames = [String]()
+    var usersDict = [String: User]()
+    var boardsDict = [String: Board]()
     
     @IBOutlet weak var outlineView: NSOutlineView!
     @IBOutlet weak var leftColumn: NSTableColumn!
@@ -29,17 +24,7 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
         mode = "users"
         leftColumn.title = "User"
         rightColumn.title = "Boards"
-        for userObject in usersArray {
-            for board in userObject.boards {
-                let boardTitle = board.name
-                let boardId = board.id
-                if (!boardsId.contains(boardId)) {
-                    boardsArray.append(board)
-                    boardsId.append(boardId)
-                    boardsNames.append(boardTitle)
-                }
-            }
-        }
+        buildBoardsDict()
         outlineView.reloadData()
     }
     
@@ -47,27 +32,25 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
         mode = "boards"
         leftColumn.title = "Boards"
         rightColumn.title = "Users"
-        for userObject in usersArray {
-            let userName = userObject.name
-            for board in userObject.boards {
-                let boardTitle = board.name
-                let boardId = board.id
-                if usersInBoardsArray[boardTitle] == nil {
-                    var user = [String]()
-                    user.append(userName)
-                    usersInBoardsArray[boardTitle] = user
-                } else if !(usersInBoardsArray[boardTitle]?.contains(userName))! {
-                    usersInBoardsArray[boardTitle]?.append(userName)
-                }
-                if (!boardsId.contains(boardId)) {
-                    boardsArray.append(board)
-                    boardsId.append(boardId)
-                    boardsNames.append(boardTitle)
+        buildBoardsDict()
+        outlineView.reloadData()
+        
+    }
+    
+    func buildBoardsDict() {
+        if boardsDict.count == 0 {
+            for (userId, userObject) in usersDict {
+                for board in userObject.boards {
+                    let boardId = board.id
+                    if !Array(boardsDict.keys).contains(boardId) {
+                        board.usersId.append(userId)
+                        boardsDict[boardId] = board
+                    } else if !(boardsDict[boardId]?.usersId.contains(userId))! {
+                        boardsDict[boardId]?.usersId.append(userId)
+                    }
                 }
             }
         }
-        outlineView.reloadData()
-        
     }
     
     override func viewDidLoad() {
@@ -88,9 +71,8 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
                 for user in users {
                     let userId = "\(user["_id"]!)"
                     let userName = "\(user["username"]!)"
-                    self.usersNames.append(userName)
-                    self.usersArray.insert(User(id: userId, name: userName), at: i)
-                    self.usersArray[i].getBoards(rootURL: self.rootURL, bearer: self.bearer)
+                    self.usersDict[userId] = User(id: userId, name: userName)
+                    self.usersDict[userId]?.getBoards(rootURL: self.rootURL, bearer: self.bearer)
                     i = i + 1
                 }
             } catch {
@@ -103,13 +85,11 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
     // Give a unique identifier for each row
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if item == nil {
-            return (mode == "users") ? usersArray[index].name : boardsArray[index].id
-        } else if mode == "users" && usersNames.contains(item as! String) {
-            let userIndex = usersNames.index(of: item as! String)
-            return usersArray[userIndex!].boards[index].id
-        } else if mode == "boards" && boardsId.contains(item as! String) {
-            let boardIndex = getBoardName(id: item as! String)
-            return usersInBoardsArray[boardIndex]![index]
+            return (mode == "users") ? Array(usersDict.keys)[index] : Array(boardsDict.keys)[index]
+        } else if mode == "users" && Array(usersDict.keys).contains(item as! String) {
+            return usersDict[item as! String!]!.boards[index].id
+        } else if mode == "boards" && Array(boardsDict.keys).contains(item as! String) {
+            return boardsDict[item as! String!]!.usersId[index]
         } else {
             return "none"
         }
@@ -118,13 +98,11 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
     // Tell how many children each row has:
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if item == nil {
-            return (mode == "users") ? usersArray.count : boardsId.count
-        } else if mode == "users" &&  usersNames.contains(item as! String) {
-            let index = usersNames.index(of: item as! String)
-            return usersArray[index!].boards.count
-        } else if mode == "boards" && boardsId.contains(item as! String) {
-            let index = getBoardName(id: item as! String)
-            return usersInBoardsArray[index]!.count
+            return (mode == "users") ? usersDict.count : boardsDict.count
+        } else if mode == "users" &&  Array(usersDict.keys).contains(item as! String) {
+            return usersDict[item as! String]!.boards.count
+        } else if mode == "boards" && Array(boardsDict.keys).contains(item as! String) {
+            return boardsDict[item as! String]!.usersId.count
         } else {
             return 0
         }
@@ -133,13 +111,13 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
     // Tell whether the row is expandable.
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         if mode == "users" {
-            if let item = item as? String, usersNames.contains(item) {
+            if let item = item as? String, Array(usersDict.keys).contains(item) {
                 return true
             } else {
                 return false
             }
         } else {
-            if  let item = item as? String, boardsId.contains(item) {
+            if  let item = item as? String, Array(boardsDict.keys).contains(item) {
                 return true
             } else {
                 return false
@@ -157,21 +135,20 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
         let itemString = "\(item)"
         switch (columnIdentifier.rawValue, itemString, mode) {
         case ("keyColumn", itemString, "users"):
-            if usersNames.contains(itemString) {
-                text = itemString
+            if Array(usersDict.keys).contains(itemString) {
+                text = (usersDict[itemString]?.name)!
             }
         case ("keyColumn", itemString, "boards"):
-            if boardsId.contains(itemString) {
-                text = getBoardName(id: itemString)
+            if Array(boardsDict.keys).contains(itemString) {
+                text = (boardsDict[itemString]?.name)!
             }
         case ("valueColumn", itemString, "users"):
-            if boardsId.contains(itemString) {
-                let index = boardsId.index(of: itemString)
-                text = boardsNames[index!]
+            if Array(boardsDict.keys).contains(itemString) {
+                text = (boardsDict[itemString]?.name)!
             }
         case ("valueColumn", itemString, "boards"):
-            if usersNames.contains(itemString) {
-                text = itemString
+            if Array(usersDict.keys).contains(itemString) {
+                text = (usersDict[itemString]?.name)!
             }
         default:
             break
@@ -181,18 +158,6 @@ class ViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDe
         cell.textField!.stringValue = text
         
         return cell
-    }
-    
-    func getBoardName(id: String) -> String {
-        var index = ""
-        for board in boardsArray {
-            if board.id == id {
-                index = board.name
-            }
-        }
-        return index
-    }
-    
-        
+    }  
 }
 

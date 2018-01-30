@@ -14,6 +14,7 @@
 		F07E8E93201F2ADD009936AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F07E8E91201F2ADD009936AA /* Main.storyboard */; };
 		F07E8E9D201F3628009936AA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E8E9C201F3628009936AA /* User.swift */; };
 		F07E8E9F201F4EF1009936AA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E8E9E201F4EF1009936AA /* Login.swift */; };
+		F0DDF0512020603500690F75 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DDF0502020603500690F75 /* Constants.swift */; };
 		F0FBA1D8201F6E1A00C87A9D /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FBA1D7201F6E1A00C87A9D /* Board.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		F07E8E9B201F2D29009936AA /* Wekan Boards.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wekan Boards.entitlements"; sourceTree = "<group>"; };
 		F07E8E9C201F3628009936AA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F07E8E9E201F4EF1009936AA /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		F0DDF0502020603500690F75 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F0FBA1D7201F6E1A00C87A9D /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,15 +65,16 @@
 			isa = PBXGroup;
 			children = (
 				F07E8E9B201F2D29009936AA /* Wekan Boards.entitlements */,
+				F07E8E95201F2ADD009936AA /* Wekan_Boards.entitlements */,
+				F07E8E94201F2ADD009936AA /* Info.plist */,
 				F07E8E88201F2ADD009936AA /* AppDelegate.swift */,
-				F07E8E8A201F2ADD009936AA /* ViewController.swift */,
+				F0FBA1D7201F6E1A00C87A9D /* Board.swift */,
+				F0DDF0502020603500690F75 /* Constants.swift */,
 				F07E8E9E201F4EF1009936AA /* Login.swift */,
 				F07E8E9C201F3628009936AA /* User.swift */,
-				F0FBA1D7201F6E1A00C87A9D /* Board.swift */,
+				F07E8E8A201F2ADD009936AA /* ViewController.swift */,
 				F07E8E8F201F2ADD009936AA /* Assets.xcassets */,
 				F07E8E91201F2ADD009936AA /* Main.storyboard */,
-				F07E8E94201F2ADD009936AA /* Info.plist */,
-				F07E8E95201F2ADD009936AA /* Wekan_Boards.entitlements */,
 				F07E8E8C201F2ADD009936AA /* Wekan_Boards.xcdatamodeld */,
 			);
 			path = "Wekan Boards";
@@ -152,6 +155,7 @@
 				F07E8E9F201F4EF1009936AA /* Login.swift in Sources */,
 				F0FBA1D8201F6E1A00C87A9D /* Board.swift in Sources */,
 				F07E8E8B201F2ADD009936AA /* ViewController.swift in Sources */,
+				F0DDF0512020603500690F75 /* Constants.swift in Sources */,
 				F07E8E8E201F2ADD009936AA /* Wekan_Boards.xcdatamodeld in Sources */,
 				F07E8E89201F2ADD009936AA /* AppDelegate.swift in Sources */,
 			);

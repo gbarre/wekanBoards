@@ -3,7 +3,6 @@
 //  Wekan Boards
 //
 //  Created by Guillaume on 29/01/2018.
-//  Copyright © 2018 Guillaume. All rights reserved.
 //
 
 import Cocoa
@@ -24,13 +23,16 @@ class Login: NSViewController {
         
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            do {
-                let credentials = try JSONSerialization.jsonObject(with: data!) as! NSDictionary
-                self.bearer = "\(credentials["token"]!)"
-                self.goStatus.isEnabled = true
-                sender.isEnabled = false
-            } catch {
-                print("error")
+            if data != nil {
+                do {
+                    let credentials = try JSONSerialization.jsonObject(with: data!) as! NSDictionary
+                    self.bearer = "\(credentials["token"]!)"
+                    self.goStatus.isEnabled = true
+                    sender.isEnabled = false
+                } catch {
+                    print("error")
+                }
+                
             }
         })
         task.resume()

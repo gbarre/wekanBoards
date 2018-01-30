@@ -3,7 +3,6 @@
 //  Wekan Boards
 //
 //  Created by Guillaume on 29/01/2018.
-//  Copyright © 2018 Guillaume. All rights reserved.
 //
 
 import Cocoa

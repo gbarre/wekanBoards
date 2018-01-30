@@ -686,10 +686,10 @@
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Wekan Boards" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="463" y="369" width="721" height="307"/>
+                        <rect key="contentRect" x="463" y="369" width="348" height="188"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="721" height="307"/>
-                        <value key="maxSize" type="size" width="721" height="307"/>
+                        <value key="minSize" type="size" width="348" height="188"/>
+                        <value key="maxSize" type="size" width="348" height="188"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -812,8 +812,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fWY-Sl-W2g">
-                                <rect key="frame" x="14" y="552" width="165" height="32"/>
-                                <buttonCell key="cell" type="push" title="Liste des utilisateurs" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ENU-fx-eKC">
+                                <rect key="frame" x="14" y="552" width="76" height="32"/>
+                                <buttonCell key="cell" type="push" title="Users" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ENU-fx-eKC">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -822,8 +822,8 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ndd-nC-EmU">
-                                <rect key="frame" x="192" y="552" width="150" height="32"/>
-                                <buttonCell key="cell" type="push" title="Liste des tableaux" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ID3-xN-evH">
+                                <rect key="frame" x="103" y="552" width="83" height="32"/>
+                                <buttonCell key="cell" type="push" title="Boards" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ID3-xN-evH">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -915,7 +915,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="BJz-I0-5wr">
-                                    <rect key="frame" x="1" y="117.53843748569489" width="234.77448272705078" height="15"/>
+                                    <rect key="frame" x="1" y="117" width="234.77448272705078" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="btn-RB-aaJ">
